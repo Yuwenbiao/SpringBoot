@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,11 +27,17 @@ public class TweetController {
     }
 
     @RequestMapping("/result")
-    public String hello(@RequestParam(defaultValue = "masterSpringMVC4") String search, Model model) {
-        SearchResults searchResults = twitter.searchOperations().search(search);
+    public String hello(@RequestParam(defaultValue = "SpringBootTest") String search, Model model) {
+//        SearchResults searchResults = twitter.searchOperations().search(search);
 //        List<String> tweets = searchResults.getTweets().stream().map(Tweet::getText).collect(Collectors.toList());
 //        model.addAttribute("tweets", tweets);
-        List<Tweet>  tweets=searchResults.getTweets();
+//        List<Tweet>  tweets=searchResults.getTweets();
+        List<String> tweets = new ArrayList<String>() {
+            {
+                add("The first tweet");
+                add("The second tweet");
+            }
+        };
         model.addAttribute("tweets", tweets);
         model.addAttribute("search", search);
         return "resultPage";
